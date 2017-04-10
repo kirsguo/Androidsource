@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+android {
+//项目编译版本
+    compileSdkVersion 25
+//项目构建工具的版本
+    buildToolsVersion "25.0.2"
+//    对项目更多细节的配置
+    defaultConfig {
+//        项目的包名
+        applicationId "com.example.kirsguo.helloworld"
+//        项目最低兼容的Android系统版本
+        minSdkVersion 15
+//        在该目标版本上做过充分测试
+        targetSdkVersion 25
+//        项目版本号
+        versionCode 1
+//        项目版本名
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+//    生成安装文件的相关配置
+    buildTypes {
+//        debug闭包用于指定生成测试版安装文件的配置
+//        release闭包用于指定生成正式版安装文件的配置
+        release {
+//            是否对项目代码进行混淆
+            minifyEnabled false
+//            混淆时使用的规则文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+//依赖关系 （本地依赖、库依赖和远程依赖）
+dependencies {
+//    本地依赖声明：libs目录下所有.jar后缀的文件都添加到项目的构建路径当中
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+//    远程依赖库声明（构建项目时首先检查一下本地是否已经有这个库的缓存，如果没有的话联网下载）
+//    库依赖声明（eg： compile project（'：helper））
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+}
